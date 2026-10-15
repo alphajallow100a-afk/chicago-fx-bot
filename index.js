@@ -3,7 +3,7 @@ const express=require('express');
 const app=express();
 const BOT_TOKEN=process.env.BOT_TOKEN;
 const UNLOCK_CODE="CHICAGO2026";
-const PRIVATE_INVITE="https://t.me/+CScVO";
+const PRIVATE_INVITE=const PRIVATE_INVITE="https://t.me/+rKd67HabS8RiOTU8";
 const bot=new TelegramBot(BOT_TOKEN,{polling:true});
 const users={};
 console.log("Chicago FX Bot LIVE!");
