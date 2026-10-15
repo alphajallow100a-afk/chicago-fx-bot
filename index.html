@@ -2,88 +2,69 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Chicago FX 100 - 91% Win Rate</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
-*{font-family:'Space Grotesk',sans-serif}
-body{background:#0f0f23;color:white}
+*{font-family:sans-serif}
+body{background:#0f0f23;color:white;margin:0}
 .glass{background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1)}
+#loginScreen{overflow-y:auto;-webkit-overflow-scrolling:touch;height:100vh;height:100dvh;position:fixed;top:0;left:0;right:0;bottom:0;padding-bottom:200px;}
+input{font-size:16px!important;}
 </style>
 </head>
-<body class="min-h-screen">
-<div id="loginScreen" class="fixed inset-0 z-50 bg-[#0a0a1a] flex flex-col p-6">
-<div class="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
-<div class="text-center mb-8">
+<body>
+<div id="loginScreen" class="z-50 bg-[#0a0a1a] flex flex-col p-6">
+<div class="flex-1 flex flex-col max-w-md mx-auto w-full">
+<div class="text-center mb-6 pt-2">
 <div class="w-20 h-20 rounded-2xl mx-auto flex items-center justify-center text-3xl font-bold mb-4" style="background:linear-gradient(135deg,#a855f7,#ec4899)">C</div>
 <h1 class="text-3xl font-bold">Chicago FX 100</h1>
-<p class="text-purple-300 text-sm mt-1">91% WIN RATE - AI POWERED</p>
-<div class="mt-3 inline-flex bg-green-500/20 border border-green-500/30 px-3 py-1 rounded-full text-xs text-green-300">REAL $0.02 + DEMO ACTIVE</div>
+<p class="text-purple-300 text-sm">91% WIN RATE - AI POWERED</p>
 </div>
 <div class="glass rounded-3xl p-6">
-<h2 class="font-bold text-lg mb-1">Connect Pocket Option</h2>
-<p class="text-xs text-gray-400 mb-5">Login to sync balance. Demo mode available without login.</p>
+<h2 class="font-bold">Connect Pocket Option</h2>
+<p class="text-xs text-gray-400 mb-4">Demo available without login</p>
 <label class="text-xs">Pocket Option Email</label>
-<input id="poEmail" type="email" placeholder="your@pocketoption.com" class="w-full mt-1 mb-3 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm">
-<label class="text-xs">Password / API Token (encrypted locally)</label>
-<input id="poPass" type="password" placeholder="••••••••" class="w-full mt-1 mb-3 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm">
-<div class="flex gap-2 mb-4">
-<button onclick="login('demo')" class="flex-1 bg-white/10 border border-white/20 rounded-xl py-3 text-sm font-bold">Try Demo Mode</button>
-<button onclick="login('real')" class="flex-1 rounded-xl py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Connect Real $0.02</button>
+<input id="poEmail" type="email" inputmode="email" placeholder="your@pocketoption.com" class="w-full mt-1 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-[16px]">
+<label class="text-xs">Password / API Token</label>
+<input id="poPass" type="password" placeholder="••••••••" class="w-full mt-1 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-[16px]">
+<div class="flex gap-2">
+<button onclick="login('demo')" class="flex-1 bg-white/10 border rounded-xl py-3.5 text-sm font-bold">Try Demo Mode</button>
+<button onclick="login('real')" class="flex-1 rounded-xl py-3.5 text-sm font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Connect Real $0.02</button>
 </div>
-<div class="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-3 text-[11px] text-yellow-200/80">Stored only on your device. Use API token for security.</div>
 </div>
-<div class="mt-6 grid grid-cols-3 gap-2 text-center">
-<div class="glass rounded-xl p-3"><div class="text-green-400 font-bold">91%</div><div class="text-[10px] text-gray-400">Win Rate</div></div>
-<div class="glass rounded-xl p-3"><div class="text-purple-400 font-bold">100+</div><div class="text-[10px] text-gray-400">Signals</div></div>
-<div class="glass rounded-xl p-3"><div class="text-cyan-400 font-bold">$0.02</div><div class="text-[10px] text-gray-400">Min Real</div></div>
-</div>
+<div style="height:200px"></div>
 </div>
 </div>
 <div id="mainApp" class="hidden pb-20">
-<div class="sticky top-0 z-30 bg-[#0f0f23]/90 border-b border-white/10 p-4 flex justify-between items-center">
-<div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm" style="background:linear-gradient(135deg,#a855f7,#ec4899)">C</div><div><div class="font-bold text-sm">Chicago FX 100</div><div class="text-[10px] text-green-400" id="accountEmail">demo@pocketoption</div></div></div>
-<div class="flex items-center gap-2"><div class="flex bg-black/50 rounded-full p-1 border border-white/10"><button onclick="setMode('demo')" id="btnDemo" class="px-3 py-1 rounded-full text-xs font-bold bg-white/10">DEMO</button><button onclick="setMode('real')" id="btnReal" class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">REAL $0.02</button></div><button onclick="logout()" class="w-8 h-8 glass rounded-full">↪</button></div>
-</div>
-<div id="tabHome" class="p-4 space-y-4">
-<div class="text-center py-2"><h1 class="text-2xl font-black">MAKE A MOVE</h1><h1 id="tradeTitle" class="text-2xl font-black text-pink-500">REAL $0.02 TRADE</h1><div id="modeBadge" class="mt-3 inline-flex bg-green-500/20 border border-green-500 text-green-300 text-xs px-3 py-1 rounded-full font-bold">REAL MODE LIVE</div></div>
-<div class="glass rounded-2xl p-5"><div class="flex justify-between"><span class="text-xs text-gray-400" id="balanceLabel">Real balance</span><span class="text-[10px] bg-green-500/20 border border-green-500 text-green-300 px-2 rounded-full">Live</span></div><div id="balanceAmount" class="text-5xl font-black text-green-400 mt-1">$0.02</div><div class="grid grid-cols-2 gap-3 mt-4"><div class="bg-black/30 rounded-xl p-3"><div class="text-[11px] text-gray-400">Buying Power</div><div id="buyingPower" class="font-bold">$0.02</div></div><div class="bg-black/30 rounded-xl p-3"><div class="text-[11px] text-gray-400">Margin</div><div class="font-bold">Secure</div></div></div></div>
-<button onclick="executeTrade()" class="w-full rounded-full py-4 font-black text-sm text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">TRADE <span id="tradeBtnAmt">REAL $0.02</span></button>
-<div><h3 class="font-bold text-sm">Today Summary - <span class="text-green-400">91% Win Rate</span></h3><div class="grid grid-cols-3 gap-2 mt-2"><div class="glass rounded-xl p-3 text-center"><div id="statPL" class="text-green-400 font-bold">$0.00</div><div class="text-[10px] text-gray-400">P/L</div></div><div class="glass rounded-xl p-3 text-center"><div id="statTrades" class="font-bold">0</div><div class="text-[10px]">Trades</div></div><div class="glass rounded-xl p-3 text-center"><div class="font-bold">91%</div><div class="text-[10px]">Win</div></div></div></div>
-<div id="recentList" class="space-y-2"></div>
-</div>
-<div id="tabTrade" class="hidden p-4 space-y-4">
-<div class="glass rounded-2xl p-4"><h2 class="font-bold">AI Signal Engine - 91% Model</h2><p class="text-xs text-gray-400">RSI+MACD - Martingale Safe</p></div>
-<div class="flex gap-2"><select id="pairSelect" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-3 py-3 text-sm"><option>EUR/USD OTC</option><option>GBP/USD OTC</option><option>USD/JPY OTC</option></select><button onclick="generateSignal()" class="px-5 rounded-xl text-sm font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Scan</button></div>
-<div id="signalContainer" class="space-y-2"></div>
-</div>
-<div id="tabHistory" class="hidden p-4 space-y-4"><h1 class="text-xl font-black text-center">PROFIT HISTORY</h1><div class="grid grid-cols-3 gap-2"><div class="glass rounded-xl p-3 text-center"><div id="hTotalProfit" class="text-green-400 font-bold">$0.00</div><div class="text-[10px] text-gray-400">Total Profit</div></div><div class="glass rounded-xl p-3 text-center"><div id="hRealBalance" class="font-bold">$0.02</div><div class="text-[10px] text-gray-400">Balance</div></div><div class="glass rounded-xl p-3 text-center"><div id="hTotalTrades" class="font-bold">0</div><div class="text-[10px] text-gray-400">Trades</div></div></div><div><h3 class="font-bold text-sm mb-2">All Trades - <span id="hModeLabel">Real $0.02</span></h3><div id="historyList" class="space-y-2"></div><div id="emptyHistory" class="glass rounded-xl p-6 text-center"><div class="text-sm font-bold">No trades yet</div><div class="text-xs text-gray-400">Your trades will appear here</div></div></div></div>
-<div id="tabWallet" class="hidden p-4"><h2 class="font-bold">Wallet - 91% Calculator</h2><div class="glass rounded-2xl p-4 mt-3"><div class="flex justify-between"><span class="text-gray-400">Amount</span><span id="calcAmt" class="font-bold">$0.02</span></div><input id="calcInput" type="range" min="1" max="100" value="2" class="w-full mt-2"><div class="grid grid-cols-2 gap-2 text-xs mt-3"><div class="bg-black/30 rounded-xl p-3"><div class="text-gray-400">91% Profit</div><div id="calcProfit" class="font-bold text-green-400">+$0.018</div></div><div class="bg-black/30 rounded-xl p-3"><div class="text-gray-400">Loss</div><div class="font-bold text-red-400">-$0.02</div></div></div></div></div>
-<div id="tabProfile" class="hidden p-4"><div class="glass rounded-2xl p-5 text-center"><div class="w-16 h-16 rounded-full mx-auto flex items-center justify-center font-bold text-xl text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">C</div><div id="profileEmail" class="font-bold mt-2">demo@user</div><div class="text-xs text-gray-400">91% Engine</div></div></div>
-<div class="fixed bottom-0 left-0 right-0 bg-[#0f0f23]/95 border-t border-white/10 flex justify-around py-2">
-<button onclick="showTab('home')" id="navHome" class="flex flex-col items-center px-4" style="color:#ec4899"><span class="text-xs">⌂</span><span class="text-[10px]">Home</span></button>
-<button onclick="showTab('trade')" id="navTrade" class="flex flex-col items-center text-gray-500 px-4"><span class="text-xs">↗</span><span class="text-[10px]">Trade</span></button>
-<button onclick="showTab('history')" id="navHistory" class="flex flex-col items-center text-gray-500 px-4"><span class="text-xs">◷</span><span class="text-[10px]">History</span></button>
-<button onclick="showTab('wallet')" id="navWallet" class="flex flex-col items-center text-gray-500 px-4"><span class="text-xs">W</span><span class="text-[10px]">Wallet</span></button>
-<button onclick="showTab('profile')" id="navProfile" class="flex flex-col items-center text-gray-500 px-4"><span class="text-xs">☺</span><span class="text-[10px]">Profile</span></button>
-</div>
+<div class="sticky top-0 bg-[#0f0f23]/90 p-4 flex justify-between"><div class="flex gap-3"><div class="w-8 h-8 rounded-full flex items-center justify-center font-bold" style="background:linear-gradient(135deg,#a855f7,#ec4899)">C</div><div><div class="font-bold text-sm">Chicago FX 100</div><div class="text-[10px] text-green-400" id="accountEmail">demo</div></div></div><div class="flex gap-2"><button onclick="setMode('demo')" id="btnDemo" class="px-3 py-1 rounded-full text-xs bg-white/10">DEMO</button><button onclick="setMode('real')" id="btnReal" class="px-3 py-1 rounded-full text-xs text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">REAL $0.02</button><button onclick="logout()" class="w-8 h-8 glass rounded-full">X</button></div></div>
+<div id="tabHome" class="p-4 space-y-4"><div class="text-center"><h1 class="text-2xl font-black">MAKE A MOVE</h1><h1 id="tradeTitle" class="text-2xl font-black text-pink-500">REAL $0.02 TRADE</h1><div id="modeBadge" class="mt-3 inline-flex bg-green-500/20 border border-green-500 text-green-300 text-xs px-3 py-1 rounded-full">REAL MODE LIVE</div></div><div class="glass rounded-2xl p-5"><div id="balanceAmount" class="text-5xl font-black text-green-400">$0.02</div><div class="text-xs text-gray-400" id="balanceLabel">Real balance</div><div class="grid grid-cols-2 gap-3 mt-4"><div class="bg-black/30 rounded-xl p-3"><div class="text-[11px] text-gray-400">Buying Power</div><div id="buyingPower" class="font-bold">$0.02</div></div><div class="bg-black/30 rounded-xl p-3"><div class="text-[11px]">Secure</div></div></div></div><button onclick="executeTrade()" class="w-full rounded-full py-4 font-black text-sm text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">TRADE <span id="tradeBtnAmt">REAL $0.02</span></button><div id="recentList" class="space-y-2"></div></div>
+<div id="tabTrade" class="hidden p-4 space-y-4"><div class="glass rounded-2xl p-4"><h2 class="font-bold">AI Signal Engine - 91%</h2></div><div class="flex gap-2"><select id="pairSelect" class="flex-1 bg-black/40 border rounded-xl px-3 py-3 text-sm"><option>EUR/USD OTC</option><option>GBP/USD OTC</option><option>USD/JPY OTC</option></select><button onclick="generateSignal()" class="px-5 rounded-xl text-sm font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Scan</button></div><div id="signalContainer" class="space-y-2"></div></div>
+<div id="tabHistory" class="hidden p-4 space-y-4"><h1 class="text-xl font-black text-center">PROFIT HISTORY</h1><div id="historyList" class="space-y-2"></div><div id="emptyHistory" class="glass rounded-xl p-6 text-center"><div class="text-sm font-bold">No trades yet</div></div></div>
+<div id="tabWallet" class="hidden p-4"><h2 class="font-bold">Wallet</h2></div>
+<div id="tabProfile" class="hidden p-4"><div class="glass rounded-2xl p-5 text-center"><div id="profileEmail" class="font-bold">demo@user</div></div></div>
+<div class="fixed bottom-0 left-0 right-0 bg-[#0f0f23]/95 border-t border-white/10 flex justify-around py-2"><button onclick="showTab('home')" id="navHome" style="color:#ec4899">Home</button><button onclick="showTab('trade')" id="navTrade" class="text-gray-500">Trade</button><button onclick="showTab('history')" id="navHistory" class="text-gray-500">History</button><button onclick="showTab('wallet')" id="navWallet" class="text-gray-500">Wallet</button><button onclick="showTab('profile')" id="navProfile" class="text-gray-500">Profile</button></div>
 </div>
 <script>
 let mode='real',trades=JSON.parse(localStorage.getItem('cfx_trades')||'[]'),demoBalance=parseFloat(localStorage.getItem('cfx_demo_bal')||'10000'),realBalance=parseFloat(localStorage.getItem('cfx_real_bal')||'0.02'),isLogged=localStorage.getItem('cfx_logged');
-function login(t){const e=document.getElementById('poEmail').value||'demo@pocketoption.com';if(t==='real'&&!document.getElementById('poEmail').value){alert('Enter email or use Demo');return;}localStorage.setItem('cfx_email',e);localStorage.setItem('cfx_logged','1');mode=t==='demo'?'demo':'real';document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');init();}
+function login(t){const e=document.getElementById('poEmail').value||'demo@pocketoption.com';localStorage.setItem('cfx_email',e);localStorage.setItem('cfx_logged','1');mode=t==='demo'?'demo':'real';document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');init();}
 function logout(){localStorage.removeItem('cfx_logged');location.reload();}
 function setMode(m){mode=m;updateUI();localStorage.setItem('cfx_mode',m);}
-function showTab(t){['home','trade','history','wallet','profile'].forEach(x=>{document.getElementById('tab'+x[0].toUpperCase()+x.slice(1)).classList.add('hidden');document.getElementById('nav'+x[0].toUpperCase()+x.slice(1)).style.color='#6b7280';});document.getElementById('tab'+t[0].toUpperCase()+t.slice(1)).classList.remove('hidden');document.getElementById('nav'+t[0].toUpperCase()+t.slice(1)).style.color='#ec4899';}
-function updateUI(){const r=mode==='real';document.getElementById('btnReal').style.background=r?'linear-gradient(135deg,#a855f7,#ec4899)':'transparent';document.getElementById('btnDemo').style.background=!r?'white':'rgba(255,255,255,0.1)';document.getElementById('btnDemo').style.color=!r?'black':'white';document.getElementById('balanceAmount').textContent=r?'$'+realBalance.toFixed(2):'$'+demoBalance.toFixed(2);document.getElementById('balanceLabel').textContent=r?'Real balance':'Demo balance';document.getElementById('buyingPower').textContent=r?'$'+realBalance.toFixed(2):'$'+demoBalance.toFixed(2);document.getElementById('tradeTitle').textContent=r?'REAL $0.02 TRADE':'DEMO $1 TRADE';document.getElementById('tradeBtnAmt').textContent=r?'REAL $0.02':'DEMO $1';document.getElementById('modeBadge').textContent=r?'REAL MODE - LIVE $0.02 unlocked':'DEMO MODE - Risk free testing';document.getElementById('hModeLabel').textContent=r?'Real $0.02':'Demo';document.getElementById('hRealBalance').textContent=r?'$'+realBalance.toFixed(2):'$'+demoBalance.toFixed(2);document.getElementById('accountEmail').textContent=localStorage.getItem('cfx_email')||'demo@pocketoption';document.getElementById('profileEmail').textContent=localStorage.getItem('cfx_email')||'demo@user';renderHistory();renderRecent();}
-function executeTrade(){const amt=mode==='real'?0.02:1;const pair=document.getElementById('pairSelect')?.value||'EUR/USD OTC';const dir=Math.random()>0.5?'CALL':'PUT';const win=Math.random()<0.91;const profit=win?+(amt*0.92).toFixed(4):-amt;const trade={id:'TR'+Math.floor(100000+Math.random()*900000),pair,dir,amt,profit,mode,win,time:new Date().toLocaleTimeString(),date:Date.now()};trades.unshift(trade);if(mode==='real')realBalance+=profit;else demoBalance+=profit;localStorage.setItem('cfx_trades',JSON.stringify(trades));localStorage.setItem('cfx_demo_bal',demoBalance);localStorage.setItem('cfx_real_bal',realBalance);updateUI();showTab('history');}
-function generateSignal(){const pairs=['EUR/USD OTC','GBP/USD OTC','USD/JPY OTC'];const pair=pairs[Math.floor(Math.random()*pairs.length)];const dir=Math.random()>0.5?'CALL':'PUT';const conf=(88+Math.random()*6).toFixed(1);const el=document.createElement('div');el.className='glass rounded-2xl p-4 border-l-4 border-green-400';el.innerHTML='<div class="flex justify-between"><div><div class="font-bold text-sm">'+pair+' - <span class="'+(dir==='CALL'?'text-green-400':'text-red-400')+'">'+dir+'</span></div><div class="text-[11px] text-gray-400 mt-1">Confidence '+conf+'% - 91% Model - Exp 1m</div></div><div class="text-xs bg-green-500/20 border border-green-500 text-green-300 px-2 py-1 rounded-full">STRONG</div></div><button onclick="executeTrade()" class="mt-3 w-full rounded-xl py-2 text-xs font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Execute '+(mode==='real'?'$0.02':'$1 Demo')+' '+dir+'</button>';document.getElementById('signalContainer').prepend(el);}
-function renderRecent(){const list=document.getElementById('recentList');if(!list)return;list.innerHTML='';const f=trades.filter(t=>t.mode===mode).slice(0,3);if(!f.length){list.innerHTML='<div class="glass rounded-xl p-4 text-center text-xs text-gray-400">No trades yet in '+mode+' mode</div>';return;}f.forEach(t=>{const d=document.createElement('div');d.className='glass rounded-xl p-3 flex justify-between';d.innerHTML='<div><div class="font-bold text-xs">'+t.pair+' - '+t.dir+'</div><div class="text-[10px] text-gray-400">'+t.time+'</div></div><div class="font-bold text-sm '+(t.profit>0?'text-green-400':'text-red-400')+'">'+(t.profit>0?'+':'')+'$'+t.profit.toFixed(4)+'</div>';list.appendChild(d);});const today=trades.filter(t=>t.mode===mode);const pl=today.reduce((s,t)=>s+t.profit,0);document.getElementById('statPL').textContent=(pl>=0?'+':'')+'$'+pl.toFixed(4);document.getElementById('statTrades').textContent=today.length;document.getElementById('hTotalTrades').textContent=today.length;document.getElementById('hTotalProfit').textContent=(pl>=0?'+':'')+'$'+pl.toFixed(2);}
-function renderHistory(){const list=document.getElementById('historyList');const empty=document.getElementById('emptyHistory');const f=trades.filter(t=>t.mode===mode);if(!f.length){list.innerHTML='';empty.classList.remove('hidden');return;}empty.classList.add('hidden');list.innerHTML='';f.forEach(t=>{const d=document.createElement('div');d.className='glass rounded-xl p-3 flex justify-between';d.innerHTML='<div><div class="font-bold text-xs">'+t.pair+' - '+t.dir+' <span class="text-[10px] '+(t.win?'text-green-400':'text-red-400')+'">'+(t.win?'WIN':'LOSS')+'</span></div><div class="text-[10px] text-gray-400">'+t.time+' - '+t.mode.toUpperCase()+'</div></div><div class="font-bold text-sm '+(t.profit>0?'text-green-400':'text-red-400')+'">'+(t.profit>0?'+':'')+'$'+t.profit.toFixed(4)+'</div>';list.appendChild(d);});}
-function init(){mode=localStorage.getItem('cfx_mode')||'real';updateUI();setTimeout(generateSignal,800);}
+function showTab(t){['home','trade','history','wallet','profile'].forEach(x=>{document.getElementById('tab'+x[0].toUpperCase()+x.slice(1)).classList.add('hidden');});document.getElementById('tab'+t[0].toUpperCase()+t.slice(1)).classList.remove('hidden');}
+function updateUI(){const r=mode==='real';document.getElementById('balanceAmount').textContent=r?'$'+realBalance.toFixed(2):'$'+demoBalance.toFixed(2);document.getElementById('accountEmail').textContent=localStorage.getItem('cfx_email');renderHistory();}
+function executeTrade(){const amt=mode==='real'?0.02:1;const dir=Math.random()>0.5?'CALL':'PUT';const win=Math.random()<0.91;const profit=win?+(amt*0.92).toFixed(4):-amt;const trade={id:'TR'+Math.floor(Math.random()*900000),pair:'EUR/USD OTC',dir,amt,profit,mode,win,time:new Date().toLocaleTimeString()};trades.unshift(trade);if(mode==='real')realBalance+=profit;else demoBalance+=profit;localStorage.setItem('cfx_trades',JSON.stringify(trades));localStorage.setItem('cfx_demo_bal',demoBalance);localStorage.setItem('cfx_real_bal',realBalance);updateUI();}
+function generateSignal(){const dir=Math.random()>0.5?'CALL':'PUT';const el=document.createElement('div');el.className='glass rounded-2xl p-4';el.innerHTML='<div>'+dir+' 91% Signal</div><button onclick="executeTrade()" class="mt-2 w-full rounded-xl py-2 text-xs text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Execute '+dir+'</button>';document.getElementById('signalContainer').prepend(el);}
+function renderHistory(){const list=document.getElementById('historyList');list.innerHTML='';trades.filter(t=>t.mode===mode).forEach(t=>{const d=document.createElement('div');d.className='glass rounded-xl p-3 flex justify-between';d.innerHTML='<div>'+t.dir+' '+(t.win?'WIN':'LOSS')+'</div><div class='+(t.profit>0?'text-green-400':'text-red-400')+'>'+t.profit.toFixed(4)+'</div>';list.appendChild(d);});}
+function init(){mode=localStorage.getItem('cfx_mode')||'real';updateUI();if(window.Telegram&&window.Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}}
 if(isLogged){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');init();}
-document.getElementById('calcInput')?.addEventListener('input',e=>{const v=parseFloat(e.target.value)/100;const amt=mode==='real'?v:parseFloat(e.target.value);document.getElementById('calcAmt').textContent='$'+amt.toFixed(2);document.getElementById('calcProfit').textContent='+ $'+(amt*0.92).toFixed(3);});
+document.addEventListener('DOMContentLoaded',()=>{
+  [document.getElementById('poEmail'),document.getElementById('poPass')].forEach(el=>{
+    if(!el) return;
+    el.addEventListener('focus',()=>{setTimeout(()=>{el.scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('loginScreen').scrollTop+=120;},350);});
+  });
+  if(window.Telegram&&window.Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
+});
 </script>
 </body>
 </html>
